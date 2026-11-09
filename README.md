@@ -1,3 +1,20 @@
+> [!WARNING]
+> **Experimental compatibility branch:** this fork adds userscript matching and startup support for `play.xbox.com`. It is not yet verified to launch or stream games on the redesigned site. The new site uses a different frontend stack, so some Better xCloud UI features may not work until their hooks are adapted.
+>
+> Install only the build produced by the **play-xbox-compat** branch workflow. This test build intentionally has no automatic update URL; do not expect it to update from the upstream release.
+
+## Build and test this fork
+
+1. Open the [Actions tab](https://github.com/Iamansxn/play-xbox-compat/actions) and enable GitHub Actions for this fork if prompted.
+2. Run **Build play.xbox.com compatibility test** manually, or push a commit to the `play-xbox-compat` branch.
+3. Download the `better-xcloud-play-xbox-test` artifact from the completed workflow run.
+4. Extract `better-xcloud.pretty.user.js` and install it in Tampermonkey or Violentmonkey.
+5. Open `https://play.xbox.com/` and inspect the browser console and Network tab. Report whether the userscript loads, the game library renders, and a game reaches the streaming state.
+
+The first test is expected to validate initialization only. API endpoints and stream negotiation are still handled by the upstream implementation and need verification against the new site.
+
+---
+
 <div align="center">
     <img src="https://raw.githubusercontent.com/redphx/better-xcloud/refs/heads/typescript/resources/logos/better-xcloud.png" width="256"/>  
     <h1>Better xCloud</h1>
