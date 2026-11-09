@@ -6,6 +6,7 @@
 // @author       redphx
 // @license      MIT
 // @match        https://www.xbox.com/*/play*
+// @match        https://play.xbox.com/*
 // @match        https://www.xbox.com/*/auth/msa?*loggedIn*
 // @exclude      https://www.xbox.com/*/xbox-game-pass/play-day-one
 // @run-at       document-start
