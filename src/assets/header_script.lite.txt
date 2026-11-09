@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Better xCloud (Lite)
-// @namespace    https://github.com/redphx
+// @name         Better xCloud (play.xbox.com test) (Lite)
+// @namespace    https://github.com/Iamansxn/play-xbox-compat
 // @version      [[VERSION]]
 // @description  Improve Xbox Cloud Gaming (xCloud) experience
-// @author       redphx
+// @author       Iamansxn (compatibility test fork)
 // @license      MIT
 // @match        https://www.xbox.com/*/play*
 // @match        https://play.xbox.com/*
