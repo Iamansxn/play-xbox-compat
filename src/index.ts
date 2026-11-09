@@ -58,9 +58,10 @@ if (window.location.pathname.includes('/auth/msa')) {
     window.history['pushState'] = function(...args: any[]) {
         const url = args[2];
         if (url && (url.startsWith('/play') || url.substring(6).startsWith('/play'))) {
-            console.log('Redirecting to xbox.com/play');
+            console.log('Restoring Xbox Cloud Gaming route after sign-in');
             window.stop();
-            window.location.href = 'https://www.xbox.com' + url;
+            // Keep the host that initiated authentication (legacy or preview website).
+            window.location.href = window.location.origin + url;
             return;
         }
 
