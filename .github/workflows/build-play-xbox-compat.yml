@@ -1,0 +1,49 @@
+name: Build play.xbox.com compatibility test
+
+on:
+  push:
+    branches:
+      - play-xbox-compat
+  pull_request:
+    branches:
+      - play-xbox-compat
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build userscript
+        env:
+          VERSION: 6.7.13-play-xbox-${{ github.run_number }}
+        run: bun build.ts --version "$VERSION" --variant full --pretty
+
+      - name: Verify compatibility markers
+        run: |
+          test -f dist/better-xcloud.pretty.user.js
+          grep -Fq '@match        https://play.xbox.com/*' dist/better-xcloud.pretty.user.js
+          grep -Fq 'isNewPlayHost' dist/better-xcloud.pretty.user.js
+          if grep -Fq '@updateURL' dist/better-xcloud.pretty.user.js; then
+            echo "Unexpected upstream auto-update URL in compatibility build"
+            exit 1
+          fi
+
+      - name: Upload test userscript
+        uses: actions/upload-artifact@v4
+        with:
+          name: better-xcloud-play-xbox-test
+          path: dist/better-xcloud.pretty.user.js
+          if-no-files-found: error
+          retention-days: 14
