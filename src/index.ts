@@ -149,8 +149,11 @@ if (isFullVersion() && BX_FLAGS.SafariWorkaround && document.readyState !== 'loa
     throw new Error('[Better xCloud] Executing workaround for Safari');
 }
 
-// Make sure it only run on /play
-if (!window.location.pathname.match(/^\/[a-zA-Z]{2}-[a-zA-Z]{2}\/play/)) {
+// Accept the legacy localized route and the new play.xbox.com host.
+// The new host's UI and API contract may still differ; this only enables guarded initialization.
+const isLegacyPlayRoute = /^\/[a-zA-Z]{2}-[a-zA-Z]{2}\/play(?:\/|$)/.test(window.location.pathname);
+const isNewPlayHost = window.location.hostname === 'play.xbox.com';
+if (!isLegacyPlayRoute && !isNewPlayHost) {
     throw new Error('[Better xCloud] Not xCloud page');
 }
 
